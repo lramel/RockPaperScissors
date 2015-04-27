@@ -1,38 +1,96 @@
-var userChoice = prompt("Do you choose rock, paper or scissors?");
-var computerChoice = Math.random();
+var userChoice = null;
+var computerChoice = null;
 
-if (computerChoice < 0.34) {
-  computerChoice = "rock";
-} else if(computerChoice <= 0.67) {
-  computerChoice = "paper";
-} else {
-  computerChoice = "scissors";
-} 
+var playerRock = document.getElementById("playerRock");
+var playerPaper = document.getElementById("playerPaper");
+var playerScissors = document.getElementById("playerScissors");
 
-console.log("Computer: " + computerChoice);
+var computerRock = document.getElementById("computerRock");
+var computerPaper = document.getElementById("computerPaper");
+var computerScissors = document.getElementById("computerScissors");
 
-var compareChoices = function(choice1, choice2) {
+//Random selection for the Computer
+
+function computersPick() {
+    computerChoice = Math.random();
+
+    if (computerChoice < 0.34) {
+        computerChoice = "rock";
+        computerPaper.src = 'images/placeholder.png';
+        computerScissors.src = 'images/placeholder.png';
+    } else if(computerChoice <= 0.67) {
+        computerChoice = "paper";
+        computerRock.src = 'images/placeholder.png';
+        computerScissors.src = 'images/placeholder.png';
+    } else {
+        computerChoice = "scissors";
+        computerPaper.src = 'images/placeholder.png';
+        computerRock.src = 'images/placeholder.png';
+    }
+}
+
+// Find out who wins!
+function compareChoices(choice1, choice2) {
     if(choice1 === choice2) {
         return "The result is a tie!";
     } else if (choice1 === "rock") {
         if (choice2 === "scissors") {
-            return "rock wins";
+            return "You win, great job!";
         } else {
-            return "paper wins";
+            return "The computer wins, better luck next time!";
         }
     } else if (choice1 === "paper") {
         if (choice2 === "rock") {
-            return "paper wins";
+            return "You win, great job!";
         } else {
-            return "scissors wins";
+            return "The computer wins, better luck next time!";
         }
     } else if (choice1 === "scissors") {
-        if (choice2 === "rock") {
-            return "rock wins";
+        if (choice2 === "paper") {
+            return "You win, great job!";
         } else {
-            return "scissors wins";
+            return "The computer wins, better luck next time!";
         }
     }
 }
 
-compareChoices(userChoice, computerChoice);
+function declareWinner() {
+    alert(compareChoices(userChoice, computerChoice));
+}
+
+function clickDisabler() {
+    playerRock.removeEventListener("click",rockClicked,false);
+    playerPaper.removeEventListener("click",paperClicked,false);
+    playerScissors.removeEventListener("click",scissorsClicked,false);
+}
+
+function rockClicked() {
+    playerPaper.src = 'images/placeholder.png';
+    playerScissors.src = 'images/placeholder.png';
+    userChoice = "rock";
+    clickDisabler();
+    setTimeout(computersPick, 1000);
+    setTimeout(declareWinner, 2000);
+}
+
+function paperClicked() {
+    playerRock.src = 'images/placeholder.png';
+    playerScissors.src = 'images/placeholder.png';
+    userChoice = "paper";
+    clickDisabler();
+    setTimeout(computersPick, 1000);
+    setTimeout(declareWinner, 2000);
+}
+function scissorsClicked() {
+    playerPaper.src = 'images/placeholder.png';
+    playerRock.src = 'images/placeholder.png';
+    userChoice = "scissors";
+    clickDisabler();
+    setTimeout(computersPick, 1000);
+    setTimeout(declareWinner, 2000);
+}
+
+//Assign event listeners to the available players choices
+playerRock.addEventListener("click",rockClicked,false);
+playerPaper.addEventListener("click",paperClicked,false);
+playerScissors.addEventListener("click",scissorsClicked,false);
