@@ -1,5 +1,6 @@
 var userChoice = null;
 var computerChoice = null;
+var streak = 0;
 
 var playerRock = document.getElementById("playerRock");
 var playerPaper = document.getElementById("playerPaper");
@@ -9,8 +10,15 @@ var computerRock = document.getElementById("computerRock");
 var computerPaper = document.getElementById("computerPaper");
 var computerScissors = document.getElementById("computerScissors");
 
-//Random selection for the Computer
+var newGameButton = document.getElementById("newGameButton");
+var gameResult = document.getElementById("gameResult");
+var streakCounter = document.getElementById("streakCounter");
 
+
+clickEnabler();
+newGameButton.addEventListener("click", resetGame, false);
+
+//Random selection for the Computer
 function computersPick() {
     computerChoice = Math.random();
 
@@ -32,27 +40,62 @@ function compareChoices(choice1, choice2) {
         return "The result is a tie!";
     } else if (choice1 === "rock") {
         if (choice2 === "scissors") {
+            streak++;
+            streakCounter.innerHTML = streak;
             return "You win, great job!";
         } else {
+            streakCounter.innerHTML = 0;
             return "The computer wins, better luck next time!";
         }
     } else if (choice1 === "paper") {
         if (choice2 === "rock") {
+            streak++;
+            streakCounter.innerHTML = streak;
             return "You win, great job!";
         } else {
+            streakCounter.innerHTML = 0;
             return "The computer wins, better luck next time!";
         }
     } else if (choice1 === "scissors") {
         if (choice2 === "paper") {
+            streak++;
+            streakCounter.innerHTML = streak;
             return "You win, great job!";
         } else {
+            streakCounter.innerHTML = 0;
             return "The computer wins, better luck next time!";
         }
     }
 }
 
-function declareWinner() {
-    alert(compareChoices(userChoice, computerChoice));
+//Assign event listeners to the available players choices
+function clickEnabler() {
+    playerRock.addEventListener("click",rockClicked,false);
+    playerPaper.addEventListener("click",paperClicked,false);
+    playerScissors.addEventListener("click",scissorsClicked,false);
+}
+
+function rockClicked() {
+    playerPaper.src = 'images/placeholder.png';
+    playerScissors.src = 'images/placeholder.png';
+    userChoice = "rock";
+    clickDisabler();
+    gameTimer();
+}
+
+function paperClicked() {
+    playerRock.src = 'images/placeholder.png';
+    playerScissors.src = 'images/placeholder.png';
+    userChoice = "paper";
+    clickDisabler();
+    gameTimer();
+}
+function scissorsClicked() {
+    playerPaper.src = 'images/placeholder.png';
+    playerRock.src = 'images/placeholder.png';
+    userChoice = "scissors";
+    clickDisabler();
+    gameTimer();
 }
 
 function clickDisabler() {
@@ -61,33 +104,29 @@ function clickDisabler() {
     playerScissors.removeEventListener("click",scissorsClicked,false);
 }
 
-function rockClicked() {
-    playerPaper.src = 'images/placeholder.png';
-    playerScissors.src = 'images/placeholder.png';
-    userChoice = "rock";
-    clickDisabler();
+function gameTimer() {
     setTimeout(computersPick, 1000);
     setTimeout(declareWinner, 2000);
 }
 
-function paperClicked() {
-    playerRock.src = 'images/placeholder.png';
-    playerScissors.src = 'images/placeholder.png';
-    userChoice = "paper";
-    clickDisabler();
-    setTimeout(computersPick, 1000);
-    setTimeout(declareWinner, 2000);
-}
-function scissorsClicked() {
-    playerPaper.src = 'images/placeholder.png';
-    playerRock.src = 'images/placeholder.png';
-    userChoice = "scissors";
-    clickDisabler();
-    setTimeout(computersPick, 1000);
-    setTimeout(declareWinner, 2000);
+function declareWinner() {
+    gameResult.innerHTML = (compareChoices(userChoice, computerChoice));
+    newGameButton.style.display = "inline";
 }
 
-//Assign event listeners to the available players choices
-playerRock.addEventListener("click",rockClicked,false);
-playerPaper.addEventListener("click",paperClicked,false);
-playerScissors.addEventListener("click",scissorsClicked,false);
+function resetGame() {
+    gameResult.innerHTML = "";
+    newGameButton.style.display = "none";
+    clickEnabler();
+
+    playerRock.src = 'images/rock.png';
+    playerPaper.src = 'images/paper.png';
+    playerScissors.src = 'images/scissors.png';
+
+    computerRock.src = 'images/placeholder.png';
+    computerPaper.src = 'images/placeholder.png';
+    computerScissors.src = 'images/placeholder.png';
+}
+
+
+

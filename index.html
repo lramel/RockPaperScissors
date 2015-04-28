@@ -11,34 +11,42 @@
 <body>
   <div class="container">
       <h1>Rock, Paper, Scissors!</h1>
-      <p>Classic Rock,Paper, Scissors game.</p>
-      <p>Make your choice and try to beat the computer!</p>
+      <p>Make your choice below by clicking a button and try to beat the computer!</p>
 
       <div class="row">
-        <div class="col-lg-6 gameImages">
+        <div class="col-lg-5">
           <h1>Player</h1>
           <img src="images/rock.png" width="173" id="playerRock">
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-5 col-lg-offset-2">
           <h1>Computer</h1>
           <img src="images/placeholder.png" width="173" id="computerRock">
         </div>
       </div>
 
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-5">
           <img src="images/paper.png" width="173" id="playerPaper">
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
+          <p id="gameResult"></p>
+          <form>
+            <input type="button" id="newGameButton" value="New Game" style="display:none;">
+          </form>
+        </div>
+        <div class="col-lg-5">
           <img src="images/placeholder.png" width="173" id="computerPaper">
         </div>
       </div>
 
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-5">
           <img src="images/scissors.png" width="173" id="playerScissors">
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
+          <p>Win streak: <span id="streakCounter">0</span></p>
+        </div>
+        <div class="col-lg-5 col-lg-offset-2">
           <img src="images/placeholder.png" width="173" id="computerScissors">
         </div>
       </div>
