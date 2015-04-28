@@ -14,57 +14,34 @@ var newGameButton = document.getElementById("newGameButton");
 var gameResult = document.getElementById("gameResult");
 var streakCounter = document.getElementById("streakCounter");
 
-
 clickEnabler();
 newGameButton.addEventListener("click", resetGame, false);
+
+var rules = {
+    RockRock:"It's a tie, try again!",
+    RockPaper:"The computer wins, better luck next time!",
+    RockScissors:"You win, great job!",
+    PaperRock:"You win, great job!",
+    PaperPaper:"It's a tie, try again!",
+    PaperScissors:"The computer wins, better luck next time!",
+    ScissorsRock:"The computer wins, better luck next time!",
+    ScissorsPaper:"You win, great job!",
+    ScissorsScissors:"It's a tie, try again!"
+};
 
 //Random selection for the Computer
 function computersPick() {
     computerChoice = Math.random();
 
     if (computerChoice < 0.34) {
-        computerChoice = "rock";
+        computerChoice = "Rock";
         computerRock.src = 'images/rock.png';
     } else if(computerChoice <= 0.67) {
-        computerChoice = "paper";
+        computerChoice = "Paper";
         computerPaper.src = 'images/paper.png';
     } else {
-        computerChoice = "scissors";
+        computerChoice = "Scissors";
         computerScissors.src = 'images/scissors.png';
-    }
-}
-
-// Find out who wins!
-function compareChoices(choice1, choice2) {
-    if(choice1 === choice2) {
-        return "The result is a tie!";
-    } else if (choice1 === "rock") {
-        if (choice2 === "scissors") {
-            streak++;
-            streakCounter.innerHTML = streak;
-            return "You win, great job!";
-        } else {
-            streakCounter.innerHTML = 0;
-            return "The computer wins, better luck next time!";
-        }
-    } else if (choice1 === "paper") {
-        if (choice2 === "rock") {
-            streak++;
-            streakCounter.innerHTML = streak;
-            return "You win, great job!";
-        } else {
-            streakCounter.innerHTML = 0;
-            return "The computer wins, better luck next time!";
-        }
-    } else if (choice1 === "scissors") {
-        if (choice2 === "paper") {
-            streak++;
-            streakCounter.innerHTML = streak;
-            return "You win, great job!";
-        } else {
-            streakCounter.innerHTML = 0;
-            return "The computer wins, better luck next time!";
-        }
     }
 }
 
@@ -78,7 +55,7 @@ function clickEnabler() {
 function rockClicked() {
     playerPaper.src = 'images/placeholder.png';
     playerScissors.src = 'images/placeholder.png';
-    userChoice = "rock";
+    userChoice = "Rock";
     clickDisabler();
     gameTimer();
 }
@@ -86,14 +63,14 @@ function rockClicked() {
 function paperClicked() {
     playerRock.src = 'images/placeholder.png';
     playerScissors.src = 'images/placeholder.png';
-    userChoice = "paper";
+    userChoice = "Paper";
     clickDisabler();
     gameTimer();
 }
 function scissorsClicked() {
     playerPaper.src = 'images/placeholder.png';
     playerRock.src = 'images/placeholder.png';
-    userChoice = "scissors";
+    userChoice = "Scissors";
     clickDisabler();
     gameTimer();
 }
@@ -109,9 +86,33 @@ function gameTimer() {
     setTimeout(declareWinner, 2000);
 }
 
+// Find out who wins!
+function compareChoices(choice1, choice2) {
+
+    var choices = choice1 + choice2;
+
+    if(rules[choices] === "You win, great job!") {
+        streakIncrement();
+    } else if (rules[choices] === "The computer wins, better luck next time!") {
+        streakReset();
+    }
+
+    return rules[choices]
+}
+
 function declareWinner() {
     gameResult.innerHTML = (compareChoices(userChoice, computerChoice));
     newGameButton.style.display = "inline";
+}
+
+function streakIncrement() {
+    streak++;
+    streakCounter.innerHTML = streak;
+}
+
+function streakReset() {
+    streak = 0;
+    streakCounter.innerHTML = streak;
 }
 
 function resetGame() {
