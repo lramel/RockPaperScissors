@@ -16,16 +16,13 @@ function computersPick() {
 
     if (computerChoice < 0.34) {
         computerChoice = "rock";
-        computerPaper.src = 'images/placeholder.png';
-        computerScissors.src = 'images/placeholder.png';
+        computerRock.src = 'images/rock.png';
     } else if(computerChoice <= 0.67) {
         computerChoice = "paper";
-        computerRock.src = 'images/placeholder.png';
-        computerScissors.src = 'images/placeholder.png';
+        computerPaper.src = 'images/paper.png';
     } else {
         computerChoice = "scissors";
-        computerPaper.src = 'images/placeholder.png';
-        computerRock.src = 'images/placeholder.png';
+        computerScissors.src = 'images/scissors.png';
     }
 }
 
