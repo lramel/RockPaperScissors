@@ -95,9 +95,9 @@ function compareChoices(choice1, choice2) {
 
     var choices = choice1 + choice2;
 
-    if(rules[choices] === "You win, great job!") {
+    if(rules[choices] === RESULT_WIN) {
         streakIncrement();
-    } else if (rules[choices] === "The computer wins, better luck next time!") {
+    } else if (rules[choices] === RESULT_LOSE) {
         streakReset();
     }
 
