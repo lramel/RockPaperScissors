@@ -2,6 +2,10 @@ var userChoice = null;
 var computerChoice = null;
 var streak = 0;
 
+var RESULT_WIN = "You win, great job!";
+var RESULT_DRAW = "It's a tie, try again!";
+var RESULT_LOSE = "The computer wins, better luck next time!";
+
 var playerRock = document.getElementById("playerRock");
 var playerPaper = document.getElementById("playerPaper");
 var playerScissors = document.getElementById("playerScissors");
@@ -18,15 +22,15 @@ clickEnabler();
 newGameButton.addEventListener("click", resetGame, false);
 
 var rules = {
-    RockRock:"It's a tie, try again!",
-    RockPaper:"The computer wins, better luck next time!",
-    RockScissors:"You win, great job!",
-    PaperRock:"You win, great job!",
-    PaperPaper:"It's a tie, try again!",
-    PaperScissors:"The computer wins, better luck next time!",
-    ScissorsRock:"The computer wins, better luck next time!",
-    ScissorsPaper:"You win, great job!",
-    ScissorsScissors:"It's a tie, try again!"
+    RockRock:RESULT_DRAW,
+    RockPaper:RESULT_LOSE,
+    RockScissors:RESULT_WIN,
+    PaperRock:RESULT_WIN,
+    PaperPaper:RESULT_DRAW,
+    PaperScissors:RESULT_LOSE,
+    ScissorsRock:RESULT_LOSE,
+    ScissorsPaper:RESULT_WIN,
+    ScissorsScissors:RESULT_DRAW
 };
 
 //Random selection for the Computer
